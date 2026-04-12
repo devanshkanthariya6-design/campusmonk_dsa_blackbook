@@ -1,0 +1,32 @@
+/*#include <bits/stdc++.h>
+using namespace std;
+int monkeysleft(int n,int m,int p,int k,int j){
+    int left=n;
+	while(m>0 && p>0){
+	    if(m>=k)m-=k;
+	    else if(p>=j)p-=j;
+	    left--;
+	}
+    if(m!=0 || p!=0)left-=1;
+	return left;
+}
+int main() {
+	// your code goes here
+	int n,m,p,k,j;
+	cin>>n>>m>>p>>k>>j;
+	cout<<monkeysleft(n,m,p,k,j);
+	return 0;
+}
+*/
+/**/
+/*
+int monkeysleft(int n,int m,int p,int k,int j){
+    int left=n;
+	int mb=m/k;
+	int lb=m%k;
+	int mp=p/j;
+	int lp=p%j;
+	left=n-(mb+mp);
+	if(lb!=0 || lp!=0)left-=1;
+	return left;
+}*/

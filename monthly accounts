@@ -1,0 +1,40 @@
+#include <iostream>
+#include <unordered_map>
+#include <limits>
+#include <vector>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int income;
+	cin>>income;
+	unordered_map<string,int>mp;
+	vector<string>cat;
+	int totalexpense=0;
+	while(1){
+	    
+	    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+	    string category;
+	    cin>>category;
+	     
+	    if(category=="done")break;
+	    
+	    int expense;
+	    cin>>expense;
+	    
+	    if(mp.find(category)==mp.end()){
+	        cat.push_back(category);
+	    }
+	    mp[category]+=expense;
+	    totalexpense+=expense;
+	}
+	
+	int savings=income-totalexpense;
+	cout<<income<<endl;
+	cout<<totalexpense<<endl;
+	cout<<savings<<endl;
+	for(auto it:cat){
+	    cout<<it<<":"<<mp[it]<<endl;
+	}
+	return 0;
+}

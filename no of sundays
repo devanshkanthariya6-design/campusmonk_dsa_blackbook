@@ -1,0 +1,17 @@
+#include <iostream>
+#include <unordered_map>
+using namespace std;
+
+int main() {
+	unordered_map <string,int> days={{"mon",6},{"tue",5},{"wed",4},
+	                       {"thu",3},{"fri",2},{"sat",1},{"sun",0}};
+	string weekday;
+	int dayscnt;
+	cin>>weekday>>dayscnt;
+	int ans=0;
+	if(dayscnt-days[weekday]>0){
+	    ans=1+(dayscnt-days[weekday])/7;
+	}
+	cout<<ans;
+	return 0;
+}
