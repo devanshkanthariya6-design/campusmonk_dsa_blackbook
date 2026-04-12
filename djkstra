@@ -1,0 +1,166 @@
+/*#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+void dfs(int n,int src,int dest,vector<pair<int,int>>adj[],
+         int vis[], vector<vector<int>>&allpaths,vector<int>&currpath){
+            vis[src]=1;
+            currpath.push_back(src);
+            if(src==dest){
+                allpaths.push_back(currpath);
+            }
+            else{
+                for(auto it:adj[src]){
+                if(!vis[it.first]){
+                    dfs(n,it.first,dest,adj,vis,allpaths,currpath);
+                }
+            }
+            }
+            currpath.pop_back();
+            vis[src]=0;
+             
+}
+void findminpath(int n,vector<pair<int,int>>adj[],int src,int dest){
+    int vis[n+1]={0};
+    vector<vector<int>>allpaths;
+    vector<int>currpath;
+    dfs(n,src,dest,adj,vis,allpaths,currpath);
+    
+    int minsum=INT_MAX;
+    int bestindex=-1;
+    for(int i=0;i<allpaths.size();i++){
+        int currsum=0;
+        for(int j=0;j<allpaths[i].size()-1;j++){
+            int s=allpaths[i][j];
+            int d=allpaths[i][j+1];
+            int weight=0;
+            for(auto it:adj[s]){
+                if(it.first==d){
+                    weight=it.second;
+                    break;
+                }
+            }
+            currsum+=weight;
+        }
+        if(currsum<minsum){
+            minsum=currsum;
+            bestindex=i;
+        }
+    }
+    for(auto it:allpaths[bestindex]){
+        cout<<it<<" ";
+    }cout<<endl;
+    cout<<minsum;
+}
+int main() {
+    int n,m;
+    cin>>n>>m;
+    vector<pair<int,int>>adj[n+1];
+    while(m--){
+        int u,v,w;
+        cin>>u>>v>>w;
+        adj[u].push_back({v,w});
+    }
+    int src,dest;
+    cin>>src>>dest;
+    findminpath(n,adj,src,dest);
+   
+	return 0;
+}
+*/
+/*
+8 9
+1 2 2
+1 3 3
+2 5 4
+5 6 3
+3 4 4
+3 7 2
+8 4 2
+7 8 3
+6 4 1
+1 4
+*/
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <functional>
+#include <algorithm>
+#include <climits>
+using namespace std;
+vector<int> shortestpath(int n,vector<vector<pair<int,int>>>&adj,vector<int>&parent,int src){
+    
+    vector<int>dist(n+1);
+    for(int i=0;i<=n;i++)dist[i]=INT_MAX;
+    
+    dist[src]=0;
+    
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+    pq.push({0,src});
+    
+    while(!pq.empty()){
+        
+        int node=pq.top().second;
+        int d=pq.top().first;
+        pq.pop();
+        
+        if(d>dist[node])continue;////////////
+        
+        for(auto it:adj[node]){
+            
+            int nextnode=it.first;
+            int weight=it.second;
+            
+            if(d+weight<dist[nextnode]){
+                dist[nextnode]=d+weight;
+                pq.push({dist[nextnode],nextnode});
+                
+                parent[nextnode]=node;///////
+            }
+        }
+    }
+    return dist;
+}
+int main() {
+	// your code goes here
+	int n,m;
+	cin>>n>>m;
+	vector<vector<pair<int,int>>>adj(n+1);
+	
+	while(m--){
+	    int u,v,w;
+	    cin>>u>>v>>w;
+	    adj[u].push_back({v,w});
+	}
+	
+	int src,dest;
+	cin>>src>>dest;
+	
+	vector<int>parent(n+1);
+	for(int i=0;i<n+1;i++)parent[i]=i;
+	
+	vector<int> d=shortestpath(n,adj,parent,src);
+	
+	if(d[dest]==INT_MAX){
+	    cout<<-1;
+	    return 0;
+	}
+	
+	int node=dest;
+	vector<int>path;
+	while(parent[node]!=node){
+	    path.push_back(node);
+	    node=parent[node];
+	}
+	
+	path.push_back(src);
+	reverse(path.begin(),path.end());
+	
+	for(auto it:path){
+	    cout<<it<<" ";
+	}cout<<endl;
+	
+	cout<<"shortest-distance:"<<d[dest];
+	return 0;
+}
+

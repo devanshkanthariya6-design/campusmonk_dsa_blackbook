@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int minop(vector<int> v){
+    int op=0;
+	while(true){
+	    sort(v.begin(),v.end());
+	    if((v[0]==v[1] && v[2]==v[1]+1) || (v[1]==v[2] && v[0]+1==v[1]) )return -1;
+	    v[2]-=1;
+	    v[0]+=1;
+	    v[1]+=1;
+	    op+=1;
+	    if(v[0]==v[1] && v[1]==v[2])break;
+	}
+	return op;
+}
+
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+        
+        int p,q,r;
+    	cin>>p>>q>>r; 
+    	
+    	if(p==q && q==r){
+	    cout<<0;
+	    return 0;
+     	}
+     	
+    	vector<int>v{p,q,r};
+    	cout<<minop(v);
+    }
+	
+	return 0;
+}

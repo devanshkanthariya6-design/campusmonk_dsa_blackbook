@@ -1,0 +1,40 @@
+//brute force
+
+/*#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+	vector<string>v={"flower","flow","flight"};
+	string prefix=v[0];
+	for(int i=1;i<v.size();i++){
+	    int j=0;
+	    int k=0;
+	    int cnt=0;
+	    while(j<prefix.length() && k<v[i].length()){
+	        if(v[i][j++]==prefix[k++])cnt++;
+	        else break;
+	    }
+	    prefix=prefix.substr(0,cnt);
+	}
+	cout<<prefix;
+	return 0;
+}*/
+//better - sort the array then compare first and last
+/*int main() {
+	vector<string>v={"flower","flow","flight"};
+	int n = v.size()-1 ;
+	string prefix="";
+	string first=v[0];
+	string last =v[n];
+    int j=0;
+    int k=0;
+    int cnt=0;
+    while(j<first.length() && k<last.length()){
+        if(first[j++]==last[k++])cnt++;
+        else break;
+    }
+    prefix=first.substr(0,cnt);
+	cout<<prefix;
+	return 0;
+}*/

@@ -1,0 +1,28 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+bool subset(int idx,vector<int>&v,int target,int n,int &sum){
+    if(sum==target){
+            return true;
+        }
+    if(idx==n || sum>target){
+        return false;
+    }
+    sum+=v[idx];
+    if(subset(idx+1,v,target,n,sum))return true;
+    sum-=v[idx];
+    if(subset(idx+1,v,target,n,sum))return true;
+    return false;
+}
+int main() {
+    
+	vector<int>v={11,5,9,3};
+	int target = 11;
+	int sum=0;
+	if(sum==target){
+	    cout<<true;
+	    return 0;
+	}
+	bool ans=subset(0,v,target,4,sum);
+	cout<<ans;
+}

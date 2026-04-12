@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+int countdigit(int n){
+    int cnt=0;
+    while(n){
+        cnt++;
+        n=n/10;
+    }
+    return cnt;
+}
+int main() {
+	// your code goes here
+	int n;
+	cin>>n;
+	vector<int>v(n);
+	for(int i=0;i<n;i++){
+	    cin>>v[i];
+	}
+	int x,y;
+	cin>>x>>y;
+	vector<int>count(n);
+	for(int i=0;i<n;i++){
+	    count[i]=countdigit(v[i]);
+	}
+	int res=0;
+	for(int i=0;i<n;i++){
+	    for(int j=0;j<n;j++){
+	        int n1=v[i];
+	        int n2=v[j];
+	        for(int cnt=1;cnt<=count[j];cnt++)n1*=10;/////count[n2] is wrong
+	        int concat=n1+n2;
+	        if(concat<=y && concat>=x)res++;
+	    }
+	}
+	cout<<res;
+	return 0;
+}
+/*important*/
+int n1=12;
+int n2=15;
+string con=to_string(n1)+to_string(n2);
+int concat=stoi(con);
